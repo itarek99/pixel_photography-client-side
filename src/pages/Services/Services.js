@@ -1,11 +1,16 @@
-import { useContext } from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { Link, useLoaderData, useLocation } from 'react-router-dom';
 import ServiceCard from '../../components/ServiceCard/ServiceCard';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Services = () => {
   const services = useLoaderData();
   const { user } = useContext(AuthContext);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <div className='container mx-auto px-2 my-8'>

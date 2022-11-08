@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import ReviewCard from './Components/ReviewCard';
 
@@ -7,11 +7,15 @@ const Service = () => {
   const service = useLoaderData();
   const { _id, img, title, details } = service;
   const { user } = useContext(AuthContext);
-
   const [reviews, setReviews] = useState([]);
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews/?sevice_id=${_id}`)
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/reviews/?service_id=${_id}`)
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
@@ -24,7 +28,17 @@ const Service = () => {
     e.preventDefault();
     const form = e.target;
     const review_text = form.review.value;
-    const review = { service_id: _id, review_text, name: user.displayName, email: user.email, photo: user.photoURL };
+    const review = {
+      service_id: _id,
+      review_for: title,
+      review_text,
+      name: user.displayName,
+      email: user.email,
+      photo: user.photoURL,
+    };
+
+    setReviews([...reviews, review]);
+    form.reset();
 
     fetch(`http://localhost:5000/reviews`, {
       method: 'POST',
@@ -59,27 +73,37 @@ const Service = () => {
           </div>
           <div className='lg:col-span-2 max-w-md w-full mx-auto'>
             <h4 className='text-2xl font-bold mb-4'>Add A Review</h4>
-            <form onSubmit={handleAddReview} className=' card flex-shrink-0 w-full shadow-2xl bg-neutral'>
-              <div className='card-body px-6'>
-                <div className='form-control'>
-                  <label className='label'>
-                    <span className='label-text'>Review</span>
-                  </label>
-                  <textarea
-                    rows={4}
-                    name='review'
-                    className='textarea textarea-bordered'
-                    placeholder='your text'
-                  ></textarea>
-                </div>
+            {user?.uid ? (
+              <form onSubmit={handleAddReview} className=' card flex-shrink-0 w-full shadow-2xl bg-neutral'>
+                <div className='card-body px-6'>
+                  <div className='form-control'>
+                    <label className='label'>
+                      <span className='label-text'>Review</span>
+                    </label>
+                    <textarea
+                      rows={4}
+                      name='review'
+                      className='textarea textarea-bordered'
+                      placeholder='your text'
+                    ></textarea>
+                  </div>
 
-                <div className='form-control mt-6'>
-                  <button type='submit' className='btn btn-primary'>
-                    Add Review
-                  </button>
+                  <div className='form-control mt-6'>
+                    <button type='submit' className='btn btn-primary'>
+                      Add Review
+                    </button>
+                  </div>
                 </div>
+              </form>
+            ) : (
+              <div>
+                You must be{' '}
+                <Link className='underline' to='/login'>
+                  logged in
+                </Link>{' '}
+                to post a review.
               </div>
-            </form>
+            )}
           </div>
         </div>
       </div>

@@ -1,9 +1,13 @@
+import { GoogleAuthProvider } from 'firebase/auth';
 import { useContext } from 'react';
+import { FaGoogle } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Login = () => {
-  const { logInWithEmailAndPassword } = useContext(AuthContext);
+  const { logInWithEmailAndPassword, loginWithProvider } = useContext(AuthContext);
+  const googleProvider = new GoogleAuthProvider();
+
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
@@ -18,11 +22,19 @@ const Login = () => {
       .catch((err) => console.error(err));
   };
 
+  const handleGoogleLogin = () => {
+    loginWithProvider(googleProvider)
+      .then(() => {
+        navigate('/');
+      })
+      .catch((err) => console.error(err));
+  };
+
   return (
     <div className='container h-[88vh] mx-auto px-2'>
       <div className='flex items-center justify-center h-full '>
-        <div className='card w-full max-w-md mx-auto shadow-2xl bg-base-100 -mt-20'>
-          <form onSubmit={handleLogin} className='card-body'>
+        <div className='card w-full max-w-md mx-auto shadow-2xl bg-neutral -mt-16'>
+          <form onSubmit={handleLogin} className='card-body pb-4'>
             <div className='form-control'>
               <label className='label'>
                 <span className='label-text'>Email</span>
@@ -46,6 +58,12 @@ const Login = () => {
               </button>
             </div>
           </form>
+          <div className='px-8 mb-6'>
+            <p className='text-center mb-4'>OR</p>
+            <button onClick={handleGoogleLogin} className='btn btn-secondary w-full'>
+              <FaGoogle /> &nbsp; Sign In With Google
+            </button>
+          </div>
         </div>
       </div>
     </div>

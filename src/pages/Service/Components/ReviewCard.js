@@ -10,7 +10,7 @@ const ReviewCard = ({ review }) => {
           <img className='h-16 w-16 object-cover rounded-full' src={photo} alt='' />
         </div>
         <div>
-          <p className='font-bold text-lg leading-6'>{name}</p>
+          <p className='font-bold text-lg leading-6 mb-2'>{name}</p>
           <p>{review_text}</p>
         </div>
       </div>
