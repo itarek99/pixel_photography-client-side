@@ -1,8 +1,6 @@
 const ReviewCard = ({ review }) => {
   const { name, photo, review_text } = review;
 
-  console.log(photo);
-
   return (
     <div className='bg-neutral p-6 rounded-2xl mb-6'>
       <div className='flex'>

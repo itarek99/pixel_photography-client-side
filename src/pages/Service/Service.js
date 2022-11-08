@@ -22,8 +22,6 @@ const Service = () => {
       });
   }, [_id]);
 
-  console.log(reviews);
-
   const handleAddReview = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -84,7 +82,7 @@ const Service = () => {
                       rows={4}
                       name='review'
                       className='textarea textarea-bordered'
-                      placeholder='your text'
+                      placeholder='your message...'
                     ></textarea>
                   </div>
 

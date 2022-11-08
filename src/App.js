@@ -3,8 +3,10 @@ import Main from './layouts/Main';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import Reviews from './pages/Reviews/Reviews';
 import Service from './pages/Service/Service';
 import Services from './pages/Services/Services';
+import PrivateRoute from './routes/PrivateRoute';
 
 function App() {
   const router = createBrowserRouter([
@@ -20,6 +22,14 @@ function App() {
           path: '/services/:id',
           loader: ({ params }) => fetch(`http://localhost:5000/services/${params.id}`),
           element: <Service />,
+        },
+        {
+          path: '/reviews',
+          element: (
+            <PrivateRoute>
+              <Reviews />
+            </PrivateRoute>
+          ),
         },
       ],
     },
