@@ -1,30 +1,45 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import ReviewCard from './Components/ReviewCard';
 
 const Service = () => {
   const service = useLoaderData();
   const { _id, img, title, details } = service;
   const { user } = useContext(AuthContext);
-  console.log(user);
 
-  const handleReview = (e) => {
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/reviews/?sevice_id=${_id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setReviews(data);
+      });
+  }, [_id]);
+
+  console.log(reviews);
+
+  const handleAddReview = (e) => {
     e.preventDefault();
     const form = e.target;
     const review_text = form.review.value;
-
     const review = { service_id: _id, review_text, name: user.displayName, email: user.email, photo: user.photoURL };
 
-    console.log(review);
+    fetch(`http://localhost:5000/reviews`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(review),
+    });
   };
   return (
     <div className='container mx-auto px-2'>
       <div className='my-8'>
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-x-0 lg:gap-x-12 gap-y-12 items-center'>
+        <div className='grid grid-cols-1 lg:grid-cols-3 gap-12 items-center'>
           <div className='w-full'>
             <img className='rounded-2xl w-full' src={img} alt={title} />
           </div>
-          <div className='col-span-2'>
+          <div className='lg:col-span-2'>
             <h2 className='text-4xl font-bold mb-4'>{title}</h2>
             <p className='mb-8'>{details}</p>
             <button className='btn w-36'>Book Now</button>
@@ -32,13 +47,19 @@ const Service = () => {
         </div>
       </div>
 
-      <div className='my-12'>
-        <h2 className='text-4xl font-bold mb-4'>Reviews</h2>
-        <div className='grid grid-cols-1  lg:grid-cols-3 gap-12'>
-          <div className='col-span-2'>1</div>
-          <div>
-            <h4 className='text-center text-2xl font-bold mb-4'>Add A Review</h4>
-            <form onSubmit={handleReview} className='card flex-shrink-0 w-full shadow-2xl bg-neutral'>
+      <div className='my-20'>
+        <div className='grid grid-cols-1  lg:grid-cols-5 gap-12'>
+          <div className='lg:col-span-3'>
+            <h2 className='text-4xl font-bold mb-8'>Reviews</h2>
+            <div>
+              {reviews.map((review) => (
+                <ReviewCard key={review._id} review={review} />
+              ))}
+            </div>
+          </div>
+          <div className='lg:col-span-2 max-w-md w-full mx-auto'>
+            <h4 className='text-2xl font-bold mb-4'>Add A Review</h4>
+            <form onSubmit={handleAddReview} className=' card flex-shrink-0 w-full shadow-2xl bg-neutral'>
               <div className='card-body px-6'>
                 <div className='form-control'>
                   <label className='label'>

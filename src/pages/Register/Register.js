@@ -3,18 +3,23 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Register = () => {
-  const { registerUserWithEmailAndPassWord } = useContext(AuthContext);
+  const { registerUserWithEmailAndPassWord, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleRegister = (e) => {
     e.preventDefault();
 
     const form = e.target;
+    const displayName = form.name.value;
+    const photoURL = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
 
     registerUserWithEmailAndPassWord(email, password)
       .then(() => {
+        updateUserProfile({ displayName, photoURL })
+          .then(() => {})
+          .catch((err) => console.error(err));
         navigate('/');
       })
       .catch((err) => console.error(err));
@@ -29,7 +34,7 @@ const Register = () => {
               <label className='label'>
                 <span className='label-text'>Name</span>
               </label>
-              <input type='text' placeholder='name' name='name' className='input input-bordered' />
+              <input type='text' placeholder='name' name='name' className='input input-bordered' required />
             </div>
             <div className='form-control'>
               <label className='label'>
@@ -41,7 +46,7 @@ const Register = () => {
               <label className='label'>
                 <span className='label-text'>Photo URL</span>
               </label>
-              <input type='text' placeholder='photo url' name='photo' className='input input-bordered' />
+              <input type='text' placeholder='photo url' name='photo' className='input input-bordered' required />
             </div>
             <div className='form-control'>
               <label className='label'>
