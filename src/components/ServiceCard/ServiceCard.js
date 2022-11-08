@@ -24,7 +24,7 @@ const ServiceCard = ({ service }) => {
             )}
           </p>
           <div className='card-actions w-full mt-6'>
-            <button className='btn btn-primary w-full'>Explore Now</button>
+            <button className='btn btn-accent w-full'>View Details</button>
           </div>
         </div>
       </div>

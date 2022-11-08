@@ -14,7 +14,7 @@ function App() {
         { path: '/', loader: () => fetch(`http://localhost:5000/services?size=3`), element: <Home /> },
         { path: '/login', element: <Login /> },
         { path: '/register', element: <Register /> },
-        { path: '/services', loader: () => fetch(`http://localhost:5000/services?size=3`), element: <Services /> },
+        { path: '/services', loader: () => fetch(`http://localhost:5000/services`), element: <Services /> },
       ],
     },
   ]);
