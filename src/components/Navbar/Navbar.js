@@ -7,6 +7,9 @@ const Navbar = () => {
 
   const navItems = (
     <>
+      <li>
+        <Link to={'/services'}>Services</Link>
+      </li>
       {user?.uid ? (
         <>
           <li>
@@ -54,7 +57,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className='navbar-center hidden lg:flex'>
-          <ul className='menu gap-4 menu-horizontal p-0'>{navItems}</ul>
+          <ul className='menu gap-2 menu-horizontal p-0'>{navItems}</ul>
         </div>
         <div className='navbar-end'>
           {user?.uid ? (

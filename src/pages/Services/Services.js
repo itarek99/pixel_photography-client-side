@@ -26,7 +26,7 @@ const Services = () => {
 
         {user?.uid ? (
           <div className='text-end '>
-            <Link>
+            <Link to='/add-service'>
               <button className='btn w-full max-w-xs'>Add More Service</button>
             </Link>
           </div>

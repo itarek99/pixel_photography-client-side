@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Link, useLoaderData, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import ReviewCard from './Components/ReviewCard';
@@ -42,7 +43,15 @@ const Service = () => {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(review),
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success('Review Added', {
+            duration: 1000,
+          });
+        }
+      });
   };
   return (
     <div className='container mx-auto px-2'>
@@ -64,8 +73,8 @@ const Service = () => {
           <div className='lg:col-span-3'>
             <h2 className='text-4xl font-bold mb-8'>Reviews</h2>
             <div>
-              {reviews.map((review) => (
-                <ReviewCard key={review._id} review={review} />
+              {reviews.map((review, i) => (
+                <ReviewCard key={i} review={review} />
               ))}
             </div>
           </div>

@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import Review from './components/Review';
 
@@ -23,7 +24,7 @@ const Reviews = () => {
         setReviews(reviewsAfterDelete);
 
         if (data.deletedCount > 0) {
-          alert('Review delete successfully!');
+          toast.error('Review Deleted', { duration: 1000 });
         }
       });
   };
