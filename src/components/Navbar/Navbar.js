@@ -52,7 +52,7 @@ const Navbar = () => {
               {navItems}
             </ul>
           </div>
-          <Link to='/' className='normal-case text-2xl font-bold'>
+          <Link to='/' className='normal-case text-3xl font-bold'>
             PIXEL
           </Link>
         </div>

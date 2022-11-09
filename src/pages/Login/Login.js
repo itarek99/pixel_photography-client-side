@@ -1,24 +1,45 @@
 import { GoogleAuthProvider } from 'firebase/auth';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { FaGoogle } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import useDynamicTitle from '../../hooks/useDynamicTitle';
 
 const Login = () => {
   const { logInWithEmailAndPassword, loginWithProvider } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
   const googleProvider = new GoogleAuthProvider();
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || '/';
 
+  useDynamicTitle('Pixel - Login');
+
   const handleLogin = (e) => {
     e.preventDefault();
+    setLoading(true);
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
     logInWithEmailAndPassword(email, password)
-      .then(() => {
+      .then((result) => {
+        const user = result.user;
+        const currentUser = { email: user.email };
+
+        fetch(`http://localhost:5000/jwt`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(currentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem('genius-token', data.token);
+          });
+
         navigate(from, { replace: true });
+        setLoading(false);
+        form.reset();
       })
       .catch((err) => console.error(err));
   };
@@ -35,6 +56,7 @@ const Login = () => {
     <div className='container h-[88vh] mx-auto px-2'>
       <div className='flex items-center justify-center h-full '>
         <div className='card w-full max-w-md mx-auto shadow-2xl bg-neutral -mt-16'>
+          {loading ? <LoadingSpinner /> : null}
           <form onSubmit={handleLogin} className='card-body pb-4'>
             <div className='form-control'>
               <label className='label'>

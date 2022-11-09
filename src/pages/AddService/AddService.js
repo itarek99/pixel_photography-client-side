@@ -1,6 +1,9 @@
 import toast from 'react-hot-toast';
+import useDynamicTitle from '../../hooks/useDynamicTitle';
 
 const AddService = () => {
+  useDynamicTitle('Add Service');
+
   const handleAddService = (e) => {
     e.preventDefault();
     const form = e.target;

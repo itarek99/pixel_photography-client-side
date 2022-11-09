@@ -1,14 +1,19 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import useDynamicTitle from '../../hooks/useDynamicTitle';
 
 const Register = () => {
   const { registerUserWithEmailAndPassWord, updateUserProfile } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  useDynamicTitle('Pixel - Register');
 
   const handleRegister = (e) => {
     e.preventDefault();
-
+    setLoading(true);
     const form = e.target;
     const displayName = form.name.value;
     const photoURL = form.photo.value;
@@ -20,7 +25,9 @@ const Register = () => {
         updateUserProfile({ displayName, photoURL })
           .then(() => {})
           .catch((err) => console.error(err));
+        form.reset();
         navigate('/');
+        setLoading(false);
       })
       .catch((err) => console.error(err));
   };
@@ -29,6 +36,7 @@ const Register = () => {
     <div className='container h-screen mx-auto px-2'>
       <div className='flex items-center justify-center h-full '>
         <div className='card w-full max-w-md mx-auto shadow-2xl bg-base-100 -mt-20'>
+          {loading ? <LoadingSpinner /> : null}
           <form onSubmit={handleRegister} className='card-body'>
             <div className='form-control'>
               <label className='label'>

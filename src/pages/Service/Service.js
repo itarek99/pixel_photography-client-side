@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useLoaderData, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import useDynamicTitle from '../../hooks/useDynamicTitle';
 import ReviewCard from './Components/ReviewCard';
 
 const Service = () => {
@@ -11,12 +12,14 @@ const Service = () => {
   const [reviews, setReviews] = useState([]);
   const { pathname } = useLocation();
 
+  useDynamicTitle('Pixel - ' + title);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews/?service_id=${_id}`)
+    fetch(`http://localhost:5000/reviews/${_id}`)
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
