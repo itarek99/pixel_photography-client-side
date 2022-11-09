@@ -13,7 +13,7 @@ const Navbar = () => {
             <Link to={'/reviews'}>My Reviews</Link>
           </li>
           <li>
-            <Link to={'/'}>Add Service</Link>
+            <Link to={'/add-service'}>Add Service</Link>
           </li>
         </>
       ) : null}
