@@ -39,7 +39,7 @@ const Service = () => {
       photo: user.photoURL,
     };
 
-    setReviews([...reviews, review]);
+    setReviews([review, ...reviews]);
     form.reset();
 
     fetch(`http://localhost:5000/reviews`, {

@@ -1,5 +1,6 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
 import { FaGoogle } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
@@ -38,18 +39,42 @@ const Login = () => {
           });
 
         navigate(from, { replace: true });
+        toast.success('Login Successful!');
         setLoading(false);
         form.reset();
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        toast.error(err.message);
+        setLoading(false);
+        console.error(err);
+      });
   };
 
   const handleGoogleLogin = () => {
     loginWithProvider(googleProvider)
-      .then(() => {
+      .then((result) => {
+        const user = result.user;
+        const currentUser = { email: user.email };
+
+        fetch(`http://localhost:5000/jwt`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(currentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem('genius-token', data.token);
+          });
+
         navigate(from, { replace: true });
+        toast.success('Login Successful!');
+        setLoading(false);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        toast.error(err.message);
+        setLoading(false);
+        console.error(err);
+      });
   };
 
   return (

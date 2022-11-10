@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
@@ -27,9 +28,14 @@ const Register = () => {
           .catch((err) => console.error(err));
         form.reset();
         navigate('/');
+        toast.success('Registration Successful!');
         setLoading(false);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        toast.error(err.message);
+        setLoading(false);
+        console.error(err);
+      });
   };
 
   return (

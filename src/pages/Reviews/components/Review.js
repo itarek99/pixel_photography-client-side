@@ -6,9 +6,11 @@ const Review = ({ review, handleDelete }) => {
 
   return (
     <div className='relative bg-neutral mb-6 p-8 rounded-2xl'>
-      <div className='absolute top-6 right-6 flex items-center gap-4'>
-        <FaEdit />
-        <button onClick={() => handleDelete(_id)} className='text-error'>
+      <div className='absolute top-4 right-4 flex items-center gap-1'>
+        <Link className='p-2' to={`/update/${_id}`}>
+          <FaEdit />
+        </Link>
+        <button onClick={() => handleDelete(_id)} className='text-error p-2'>
           <FaTrash />
         </button>
       </div>

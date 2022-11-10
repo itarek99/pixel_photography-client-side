@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
@@ -25,7 +26,9 @@ const Navbar = () => {
 
   const handleLogOut = () => {
     userLogOut()
-      .then(() => {})
+      .then(() => {
+        toast.success('Log Out Successful!');
+      })
       .catch((err) => console.error(err));
   };
 

@@ -40,7 +40,9 @@ const Reviews = () => {
       .then((data) => {
         const reviewsAfterDelete = reviews.filter((reviews) => reviews._id !== id);
         setReviews(reviewsAfterDelete);
-
+        if (reviewsAfterDelete.length === 0) {
+          setNoReview(true);
+        }
         if (data.deletedCount > 0) {
           toast.error('Review Deleted', { duration: 1000 });
         }
