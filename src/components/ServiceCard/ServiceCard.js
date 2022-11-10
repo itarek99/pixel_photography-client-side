@@ -21,7 +21,15 @@ const ServiceCard = ({ service }) => {
             {details.length >= 100 ? (
               <>
                 {details.slice(0, 100) + '...'}
-                <span>[{<Link className='underline'>read more</Link>}]</span>
+                <span>
+                  [
+                  {
+                    <Link to={`/services/${_id}`} className='underline'>
+                      read more
+                    </Link>
+                  }
+                  ]
+                </span>
               </>
             ) : (
               details

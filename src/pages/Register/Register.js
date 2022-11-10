@@ -22,10 +22,24 @@ const Register = () => {
     const password = form.password.value;
 
     registerUserWithEmailAndPassWord(email, password)
-      .then(() => {
+      .then((result) => {
+        const user = result.user;
+        const currentUser = { email: user.email };
+
         updateUserProfile({ displayName, photoURL })
           .then(() => {})
           .catch((err) => console.error(err));
+
+        fetch(`https://pixel-server.vercel.app/jwt`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(currentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem('genius-token', data.token);
+          });
+
         form.reset();
         navigate('/');
         toast.success('Registration Successful!');
