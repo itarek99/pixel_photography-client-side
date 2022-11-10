@@ -13,7 +13,7 @@ const AddService = () => {
     const details = form.details.value;
     const service = { title, price, img, details };
 
-    fetch(`http://localhost:5000/services`, {
+    fetch(`https://pixel-server.vercel.app/services`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(service),

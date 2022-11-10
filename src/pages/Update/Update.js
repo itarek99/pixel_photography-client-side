@@ -10,7 +10,7 @@ const Update = () => {
     e.preventDefault();
     const text = e.target.text.value;
 
-    fetch(`http://localhost:5000/review/${_id}`, {
+    fetch(`https://pixel-server.vercel.app/review/${_id}`, {
       method: 'PATCH',
       body: JSON.stringify({ review_text: text }),
       headers: {

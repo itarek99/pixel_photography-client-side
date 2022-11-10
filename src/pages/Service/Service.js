@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { Link, useLoaderData, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import useDynamicTitle from '../../hooks/useDynamicTitle';
@@ -19,7 +20,7 @@ const Service = () => {
   }, [pathname]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews/${_id}`)
+    fetch(`https://pixel-server.vercel.app/reviews/${_id}`)
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
@@ -42,7 +43,7 @@ const Service = () => {
     setReviews([review, ...reviews]);
     form.reset();
 
-    fetch(`http://localhost:5000/reviews`, {
+    fetch(`https://pixel-server.vercel.app/reviews`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(review),
@@ -57,67 +58,71 @@ const Service = () => {
       });
   };
   return (
-    <div className='container mx-auto px-2'>
-      <div className='my-8'>
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-12 items-center'>
-          <div className='w-full'>
-            <img className='rounded-2xl w-full' src={img} alt={title} />
-          </div>
-          <div className='lg:col-span-2'>
-            <h2 className='text-4xl font-bold mb-4'>{title}</h2>
-            <p className='mb-8'>{details}</p>
-            <button className='btn w-36'>Book Now</button>
-          </div>
-        </div>
-      </div>
-
-      <div className='my-20'>
-        <div className='grid grid-cols-1  lg:grid-cols-5 gap-12'>
-          <div className='lg:col-span-3'>
-            <h2 className='text-4xl font-bold mb-8'>Reviews</h2>
-            <div>
-              {reviews.map((review, i) => (
-                <ReviewCard key={i} review={review} />
-              ))}
+    <PhotoProvider>
+      <div className='container mx-auto px-2'>
+        <div className='my-8'>
+          <div className='grid grid-cols-1 lg:grid-cols-3 gap-12 items-center'>
+            <div className='w-full'>
+              <PhotoView src={img}>
+                <img className='rounded-2xl w-full' src={img} alt={title} />
+              </PhotoView>
+            </div>
+            <div className='lg:col-span-2'>
+              <h2 className='text-4xl font-bold mb-4'>{title}</h2>
+              <p className='mb-8'>{details}</p>
+              <button className='btn w-36'>Book Now</button>
             </div>
           </div>
-          <div className='lg:col-span-2 max-w-md w-full mx-auto'>
-            <h4 className='text-2xl font-bold mb-4'>Add A Review</h4>
-            {user?.uid ? (
-              <form onSubmit={handleAddReview} className=' card flex-shrink-0 w-full shadow-2xl bg-neutral'>
-                <div className='card-body px-6'>
-                  <div className='form-control'>
-                    <label className='label'>
-                      <span className='label-text'>Review</span>
-                    </label>
-                    <textarea
-                      rows={4}
-                      name='review'
-                      className='textarea textarea-bordered'
-                      placeholder='your message...'
-                    ></textarea>
-                  </div>
+        </div>
 
-                  <div className='form-control mt-6'>
-                    <button type='submit' className='btn btn-primary'>
-                      Add Review
-                    </button>
-                  </div>
-                </div>
-              </form>
-            ) : (
+        <div className='my-20'>
+          <div className='grid grid-cols-1  lg:grid-cols-5 gap-12'>
+            <div className='lg:col-span-3'>
+              <h2 className='text-4xl font-bold mb-8'>Reviews</h2>
               <div>
-                You must be{' '}
-                <Link className='underline' to='/login'>
-                  logged in
-                </Link>{' '}
-                to post a review.
+                {reviews.map((review, i) => (
+                  <ReviewCard key={i} review={review} />
+                ))}
               </div>
-            )}
+            </div>
+            <div className='lg:col-span-2 max-w-md w-full mx-auto'>
+              <h4 className='text-2xl font-bold mb-4'>Add A Review</h4>
+              {user?.uid ? (
+                <form onSubmit={handleAddReview} className=' card flex-shrink-0 w-full shadow-2xl bg-neutral'>
+                  <div className='card-body px-6'>
+                    <div className='form-control'>
+                      <label className='label'>
+                        <span className='label-text'>Review</span>
+                      </label>
+                      <textarea
+                        rows={4}
+                        name='review'
+                        className='textarea textarea-bordered'
+                        placeholder='your message...'
+                      ></textarea>
+                    </div>
+
+                    <div className='form-control mt-6'>
+                      <button type='submit' className='btn btn-primary'>
+                        Add Review
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              ) : (
+                <div>
+                  You must be{' '}
+                  <Link className='underline' to='/login'>
+                    logged in
+                  </Link>{' '}
+                  to post a review.
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </PhotoProvider>
   );
 };
 export default Service;
