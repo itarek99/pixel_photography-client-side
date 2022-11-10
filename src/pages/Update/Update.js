@@ -31,10 +31,15 @@ const Update = () => {
     <div className='container mx-auto h-[88vh] flex items-center justify-center px-2'>
       <form onSubmit={handleUpdate} className='max-w-lg w-full mx-auto'>
         <div className='form-control'>
-          <label className='label'>
-            <span className='label-text'>Review Text</span>
+          <label className='label mb-2 font-bold'>
+            <span className='label-text text-xl'>Review Text</span>
           </label>
-          <textarea name='text' defaultValue={review_text} rows={5} className='textarea textarea-bordered'></textarea>
+          <textarea
+            name='text'
+            defaultValue={review_text}
+            rows={7}
+            className='textarea py-3 textarea-bordered'
+          ></textarea>
         </div>
         <button className='btn mt-5 w-full'>Update Review</button>
       </form>
