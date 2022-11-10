@@ -1,4 +1,7 @@
+import useDynamicTitle from '../../hooks/useDynamicTitle';
+
 const Blog = () => {
+  useDynamicTitle('Pixel -Blog');
   const blogQuestion = [
     {
       id: 1,
