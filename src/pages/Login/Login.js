@@ -28,7 +28,7 @@ const Login = () => {
         const user = result.user;
         const currentUser = { email: user.email };
 
-        fetch(`https://pixel-server.vercel.app/jwt`, {
+        fetch(` https://pixel-server-itarek99.vercel.app/jwt`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(currentUser),
@@ -56,7 +56,7 @@ const Login = () => {
         const user = result.user;
         const currentUser = { email: user.email };
 
-        fetch(`https://pixel-server.vercel.app/jwt`, {
+        fetch(` https://pixel-server-itarek99.vercel.app/jwt`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(currentUser),

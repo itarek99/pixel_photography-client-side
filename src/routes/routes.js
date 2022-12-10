@@ -16,13 +16,17 @@ const router = createBrowserRouter([
     path: '/',
     element: <Main />,
     children: [
-      { path: '/', loader: () => fetch(`https://pixel-server.vercel.app/services?size=3`), element: <Home /> },
+      {
+        path: '/',
+        loader: () => fetch(` https://pixel-server-itarek99.vercel.app/services?size=3`),
+        element: <Home />,
+      },
       { path: '/login', element: <Login /> },
       { path: '/register', element: <Register /> },
       { path: '/services', element: <Services /> },
       {
         path: '/services/:id',
-        loader: ({ params }) => fetch(`https://pixel-server.vercel.app/services/${params.id}`),
+        loader: ({ params }) => fetch(` https://pixel-server-itarek99.vercel.app/services/${params.id}`),
         element: <Service />,
       },
       {
@@ -43,7 +47,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/update/:id',
-        loader: ({ params }) => fetch(`https://pixel-server.vercel.app/review/${params.id}`),
+        loader: ({ params }) => fetch(` https://pixel-server-itarek99.vercel.app/review/${params.id}`),
         element: <Update />,
       },
       {

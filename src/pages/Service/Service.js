@@ -20,7 +20,7 @@ const Service = () => {
   }, [pathname]);
 
   useEffect(() => {
-    fetch(`https://pixel-server.vercel.app/reviews/${_id}`)
+    fetch(` https://pixel-server-itarek99.vercel.app/reviews/${_id}`)
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
@@ -43,7 +43,7 @@ const Service = () => {
     setReviews([review, ...reviews]);
     form.reset();
 
-    fetch(`https://pixel-server.vercel.app/reviews`, {
+    fetch(` https://pixel-server-itarek99.vercel.app/reviews`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(review),

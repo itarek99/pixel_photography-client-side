@@ -30,7 +30,7 @@ const Register = () => {
           .then(() => {})
           .catch((err) => console.error(err));
 
-        fetch(`https://pixel-server.vercel.app/jwt`, {
+        fetch(` https://pixel-server-itarek99.vercel.app/jwt`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(currentUser),

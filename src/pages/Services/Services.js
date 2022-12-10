@@ -11,7 +11,7 @@ const Services = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    fetch(`https://pixel-server.vercel.app/services`)
+    fetch(` https://pixel-server-itarek99.vercel.app/services`)
       .then((res) => res.json())
       .then((data) => {
         setServices(data);
