@@ -1,6 +1,8 @@
+import hero_bg from '../../../assets/image/hero_bg.jpg';
+
 const Hero = () => {
   const hero = {
-    backgroundImage: `url("https://demo.shadow-themes.com/html/ashade/img/bgs/bg-home01.jpg")`,
+    backgroundImage: `url(${hero_bg})`,
   };
 
   return (

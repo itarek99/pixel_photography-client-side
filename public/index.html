@@ -26,8 +26,107 @@
 </head>
 
 <body>
+
+  <style type="text/css">
+    @keyframes ldio-sv1ci8a4l9p {
+      0% {
+        transform: rotate(0)
+      }
+
+      100% {
+        transform: rotate(360deg)
+      }
+    }
+
+    .ldio-sv1ci8a4l9p div {
+      box-sizing: border-box !important
+    }
+
+    .ldio-sv1ci8a4l9p>div {
+      position: absolute;
+      width: 106.38px;
+      height: 106.38px;
+      top: 45.31px;
+      left: 45.31px;
+      border-radius: 50%;
+      border: 7.88px solid #000;
+      border-color: #dca54c transparent #dca54c transparent;
+      animation: ldio-sv1ci8a4l9p 0.9615384615384615s linear infinite;
+    }
+
+    .ldio-sv1ci8a4l9p>div:nth-child(2) {
+      border-color: transparent
+    }
+
+    .ldio-sv1ci8a4l9p>div:nth-child(2) div {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transform: rotate(45deg);
+    }
+
+    .ldio-sv1ci8a4l9p>div:nth-child(2) div:before,
+    .ldio-sv1ci8a4l9p>div:nth-child(2) div:after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 7.88px;
+      height: 7.88px;
+      top: -7.88px;
+      left: 41.37px;
+      background: #dca54c;
+      border-radius: 50%;
+      box-shadow: 0 98.5px 0 0 #dca54c;
+    }
+
+    .ldio-sv1ci8a4l9p>div:nth-child(2) div:after {
+      left: -7.88px;
+      top: 41.37px;
+      box-shadow: 98.5px 0 0 0 #dca54c;
+    }
+
+    .loadingio-spinner-dual-ring-11p0rfzzq2m {
+      width: 197px;
+      height: 197px;
+      display: inline-block;
+      overflow: hidden;
+    }
+
+    .ldio-sv1ci8a4l9p {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform: translateZ(0) scale(1);
+      backface-visibility: hidden;
+      transform-origin: 0 0;
+      /* see note above */
+    }
+
+    .ldio-sv1ci8a4l9p div {
+      box-sizing: content-box;
+    }
+
+    .loader {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
+  <div id="root">
+    <div class="loader">
+      <div class="loadingio-spinner-dual-ring-11p0rfzzq2m">
+        <div class="ldio-sv1ci8a4l9p">
+          <div></div>
+          <div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
